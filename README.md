@@ -1,4 +1,20 @@
-the test com.fors.itconsulting.servicegateway.application.web.WsInvokerServletTest passes
+## Problem description
+
+It seems that in WebEnvironment.MOCK server.port property of an application is changed to -1 in spring test.
+It causes the following exception in zipkin: java.lang.IllegalArgumentException: invalid port -1
+
+If zipkin is disabled in test class by using annotation: @TestPropertySource(properties = { "spring.zipkin.enabled: false" }) as it is in RestServiceWithoutZipkinTest - everything goes fine. 
+
+## Configuration
+
+The application by default will be running using default port 8080
+If the port changes in application.properties the port have to be changed in com.example.sleuthzipkin.RestService.PORT constant
+
+the zipking port can be changed in application.properties. By default spring.zipkin.base-url=http://localhost:9411/
+
+## Test results
+
+the test com.example.sleuthzipkin.RestServiceWithoutZipkinTest passes
 
 the test com.example.sleuthzipkin.RestServiceWithZipkinTest fails with the following exception:
 
